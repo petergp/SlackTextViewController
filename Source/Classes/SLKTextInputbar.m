@@ -93,7 +93,7 @@
 
 - (CGSize)intrinsicContentSize
 {
-    return CGSizeMake(UIViewNoIntrinsicMetric, 44.0);
+    return CGSizeMake(UIViewNoIntrinsicMetric, 57.0);
 }
 
 + (BOOL)requiresConstraintBasedLayout
