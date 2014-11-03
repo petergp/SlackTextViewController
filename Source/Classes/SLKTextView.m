@@ -542,6 +542,10 @@ SLKPastableMediaType SLKPastableMediaTypeFromNSString(NSString *string)
 {
     if ([object isEqual:self] && [keyPath isEqualToString:NSStringFromSelector(@selector(contentSize))]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:SLKTextViewContentSizeDidChangeNotification object:self userInfo:nil];
+        UITextView *txtview = object;
+        CGFloat topoffset = (CGFloat) (([txtview bounds].size.height - [txtview contentSize].height * [txtview zoomScale])/2.0);
+        topoffset = (CGFloat) ( topoffset < 0.0 ? 0.0 : topoffset );
+        txtview.contentOffset = (CGPoint){.x = 0, .y = -topoffset};
     }
     else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
