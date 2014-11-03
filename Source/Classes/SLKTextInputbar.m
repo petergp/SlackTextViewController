@@ -61,7 +61,7 @@
 {
     self.autoHideRightButton = YES;
     self.accessoryViewHeight = 38.0;
-    self.contentInset = UIEdgeInsetsMake(5.0, 8.0, 5.0, 8.0);
+    self.contentInset = UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0);
 
     [self addSubview:self.accessoryView];
     [self addSubview:self.leftButton];
