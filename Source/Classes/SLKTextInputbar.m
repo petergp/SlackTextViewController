@@ -149,7 +149,7 @@
 {
     if (!_rightButton)
     {
-        _rightButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _rightButton.translatesAutoresizingMaskIntoConstraints = NO;
         _rightButton.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
         _rightButton.enabled = NO;
@@ -250,13 +250,19 @@
 - (CGFloat)appropriateRightButtonWidth
 {
     NSString *title = [self.rightButton titleForState:UIControlStateNormal];
-    CGSize rigthButtonSize = [title sizeWithAttributes:@{NSFontAttributeName: self.rightButton.titleLabel.font}];
-    
-    if (self.autoHideRightButton) {
-        if (self.textView.text.length == 0) {
-            return 0.0;
+    CGSize rigthButtonSize = CGSizeZero;
+    if (title.length > 0) {
+        rigthButtonSize = [title sizeWithAttributes:@{NSFontAttributeName: self.rightButton.titleLabel.font}];
+
+        if (self.autoHideRightButton) {
+            if (self.textView.text.length == 0) {
+                return 0.0;
+            }
         }
+    } else {
+        rigthButtonSize = [self.rightButton imageForState:UIControlStateNormal].size;
     }
+
     return rigthButtonSize.width+self.contentInset.right;
 }
 
