@@ -60,6 +60,7 @@ typedef NS_ENUM(NSUInteger, SLKCounterStyle) {
 /** YES if the maxmimum character count has been exceeded. */
 @property (nonatomic, readonly) BOOL limitExceeded;
 
+@property (nonatomic, assign) BOOL showLoadingView;
 
 ///------------------------------------------------
 /// @name Text Editing

@@ -36,6 +36,8 @@
 
 @property (nonatomic, strong) UILabel *charCountLabel;
 
+@property (nonatomic, strong) UIActivityIndicatorView *spinnerView;
+
 @end
 
 @implementation SLKTextInputbar
@@ -70,6 +72,7 @@
     [self addSubview:self.textView];
     [self addSubview:self.charCountLabel];
     [self addSubview:self.separatorLineView];
+    [self addSubview:self.spinnerView];
 
     [self setupViewConstraints];
     [self updateConstraintConstants];
@@ -236,6 +239,15 @@
     return _separatorLineView;
 }
 
+- (UIActivityIndicatorView *)spinnerView {
+    if (!_spinnerView) {
+        _spinnerView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [_spinnerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [_spinnerView setHidesWhenStopped:YES];
+    }
+    return _spinnerView;
+}
+
 - (NSUInteger)defaultNumberOfLines
 {
     if (UI_IS_IPAD) {
@@ -307,6 +319,17 @@
 
 
 #pragma mark - Setters
+
+- (void)setShowLoadingView:(BOOL)showLoadingView {
+    _showLoadingView = showLoadingView;
+
+    self.rightButton.hidden = showLoadingView;
+    if (showLoadingView) {
+        [self.spinnerView startAnimating];
+    } else {
+        [self.spinnerView stopAnimating];
+    }
+}
 
 - (void)setBackgroundColor:(UIColor *)color
 {
@@ -507,6 +530,7 @@
                             @"accessoryView": self.accessoryView,
                             @"charCountLabel": self.charCountLabel,
                             @"separatorLineView": self.separatorLineView,
+                            @"spinnerView": self.spinnerView,
                             };
     
     NSDictionary *metrics = @{@"top" : @(self.contentInset.top),
@@ -528,7 +552,10 @@
 
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[accessoryView(0)]-(<=top)-[textView(minTextViewHeight@250)]-(bottom)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[accessoryView]|" options:0 metrics:metrics views:views]];
-    
+
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[rightButton]-(<=1)-[spinnerView]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightButton]-(<=1)-[spinnerView]" options:NSLayoutFormatAlignAllCenterY metrics:metrics views:views]];
+
     self.accessoryViewHC = [self slk_constraintForAttribute:NSLayoutAttributeHeight firstItem:self.accessoryView secondItem:nil];
     
     self.leftButtonWC = [self slk_constraintForAttribute:NSLayoutAttributeWidth firstItem:self.leftButton secondItem:nil];
