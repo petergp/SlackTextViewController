@@ -533,6 +533,7 @@ static NSString *SLKTextCachingDefaultsKey = @"com.slack.TextViewController.Text
     _scrollViewProxy = scrollView;
     
     _singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapScrollView:)];
+    _singleTapGesture.cancelsTouchesInView = NO;
     _singleTapGesture.delegate = self;
     [_scrollViewProxy addGestureRecognizer:self.singleTapGesture];
 }
