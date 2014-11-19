@@ -95,6 +95,7 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
 @property (nonatomic, readonly) SLKTextView *textView;
 @property (nonatomic, readonly) UIButton *leftButton;
 @property (nonatomic, readonly) UIButton *rightButton;
+@property(nonatomic, strong) NSLayoutConstraint *scrollViewTopMarginConstraint;
 
 
 ///------------------------------------------------
@@ -393,4 +394,6 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView NS_REQUIRES_SUPER;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView NS_REQUIRES_SUPER;
 
+- (SLKKeyboardStatus)keyboardStatusForNotification:(NSNotification *)notification;
+- (void)willShowOrHideKeyboard:(NSNotification *)notification;
 @end
