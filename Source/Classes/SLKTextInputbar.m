@@ -535,7 +535,7 @@
     
     NSDictionary *metrics = @{@"top" : @(self.contentInset.top),
                               @"bottom" : @(self.contentInset.bottom),
-                              @"left" : @(self.contentInset.left),
+                              @"left" : @(self.contentInset.left-1),
                               @"right" : @(self.contentInset.right),
                               @"leftVerMargin" : @(leftVerMargin),
                               @"rightVerMargin" : @(rightVerMargin),
